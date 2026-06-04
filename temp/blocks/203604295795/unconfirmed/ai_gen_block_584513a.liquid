@@ -1,6 +1,964 @@
+{% doc %}
+  @prompt
+    I want a huge hero banner that says a huge title like BUY and sell clothes and then a two tab buttons below it a user can switch between for information, i can choose which one is preemptively chosen either buy or sell, and then the information below it changes accourding the button chosen. there are three boxes of information in a unique aestehtic way , i want to be able to change the font of everything, and a cta at the bottom of each version with customisable text, and make the size of the boxes smaller, like they change according to the amount of text 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-tabs-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+  }
+
+  .ai-hero-tabs__container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-hero-tabs__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    text-align: center;
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    line-height: 1;
+    text-transform: uppercase;
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+  }
+
+  .ai-hero-tabs__tab-buttons-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: {{ block.settings.tab_gap }}px;
+    margin-bottom: {{ block.settings.content_spacing }}px;
+  }
+
+  .ai-hero-tabs__tab-button-{{ ai_gen_id }} {
+    padding: {{ block.settings.tab_padding_vertical }}px {{ block.settings.tab_padding_horizontal }}px;
+    background-color: {{ block.settings.tab_inactive_bg }};
+    color: {{ block.settings.tab_inactive_text }};
+    border: {{ block.settings.tab_border_width }}px solid {{ block.settings.tab_inactive_border }};
+    cursor: pointer;
+    font-size: {{ block.settings.tab_font_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    font-family: {{ block.settings.tab_font.family }}, {{ block.settings.tab_font.fallback_families }};
+  }
+
+  .ai-hero-tabs__tab-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.tab_hover_bg }};
+    color: {{ block.settings.tab_hover_text }};
+    border-color: {{ block.settings.tab_hover_border }};
+  }
+
+  .ai-hero-tabs__tab-button-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_active_bg }};
+    color: {{ block.settings.tab_active_text }};
+    border-color: {{ block.settings.tab_active_border }};
+  }
+
+  .ai-hero-tabs__content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-hero-tabs__content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-hero-tabs__boxes-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: {{ block.settings.box_gap }}px;
+    margin-bottom: {{ block.settings.cta_spacing }}px;
+  }
+
+  .ai-hero-tabs__box-{{ ai_gen_id }} {
+    background-color: {{ block.settings.box_bg_color }};
+    border: {{ block.settings.box_border_width }}px solid {{ block.settings.box_border_color }};
+    padding: {{ block.settings.box_padding }}px;
+    border-radius: {{ block.settings.box_border_radius }}px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-hero-tabs__box-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-hero-tabs__box-icon-{{ ai_gen_id }} {
+    font-size: {{ block.settings.box_icon_size }}px;
+    margin-bottom: {{ block.settings.box_icon_spacing }}px;
+  }
+
+  .ai-hero-tabs__box-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.box_title_size }}px;
+    color: {{ block.settings.box_title_color }};
+    margin: 0 0 {{ block.settings.box_title_spacing }}px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: {{ block.settings.box_title_font.family }}, {{ block.settings.box_title_font.fallback_families }};
+  }
+
+  .ai-hero-tabs__box-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.box_text_size }}px;
+    color: {{ block.settings.box_text_color }};
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .ai-hero-tabs__cta-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    margin-top: {{ block.settings.cta_spacing }}px;
+  }
+
+  .ai-hero-tabs__cta-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.cta_padding_vertical }}px {{ block.settings.cta_padding_horizontal }}px;
+    background-color: {{ block.settings.cta_bg_color }};
+    color: {{ block.settings.cta_text_color }};
+    border: {{ block.settings.cta_border_width }}px solid {{ block.settings.cta_border_color }};
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_font_size }}px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    font-family: {{ block.settings.cta_font.family }}, {{ block.settings.cta_font.fallback_families }};
+  }
+
+  .ai-hero-tabs__cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_bg }};
+    color: {{ block.settings.cta_hover_text }};
+    border-color: {{ block.settings.cta_hover_border }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-hero-tabs__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.6);
+    }
+
+    .ai-hero-tabs__tab-buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ai-hero-tabs__boxes-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-hero-tabs__box-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+  }
+{% endstyle %}
+
+<hero-tabs-{{ ai_gen_id }} class="ai-hero-tabs-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-tabs__container-{{ ai_gen_id }}">
+    <h1 class="ai-hero-tabs__title-{{ ai_gen_id }}">{{ block.settings.main_title }}</h1>
+
+    <div class="ai-hero-tabs__tab-buttons-{{ ai_gen_id }}">
+      <button
+        class="ai-hero-tabs__tab-button-{{ ai_gen_id }} {% if block.settings.default_tab == 'buy' %}active{% endif %}"
+        data-tab="buy"
+        aria-label="Show buy information"
+      >
+        {{ block.settings.buy_tab_label }}
+      </button>
+      <button
+        class="ai-hero-tabs__tab-button-{{ ai_gen_id }} {% if block.settings.default_tab == 'sell' %}active{% endif %}"
+        data-tab="sell"
+        aria-label="Show sell information"
+      >
+        {{ block.settings.sell_tab_label }}
+      </button>
+    </div>
+
+    <div
+      class="ai-hero-tabs__content-{{ ai_gen_id }} {% if block.settings.default_tab == 'buy' %}active{% endif %}"
+      data-content="buy"
+    >
+      <div class="ai-hero-tabs__boxes-{{ ai_gen_id }}">
+        <div class="ai-hero-tabs__box-{{ ai_gen_id }}">
+          <div class="ai-hero-tabs__box-icon-{{ ai_gen_id }}">{{ block.settings.buy_box_1_icon }}</div>
+          <h3 class="ai-hero-tabs__box-title-{{ ai_gen_id }}">{{ block.settings.buy_box_1_title }}</h3>
+          <p class="ai-hero-tabs__box-text-{{ ai_gen_id }}">{{ block.settings.buy_box_1_text }}</p>
+        </div>
+        <div class="ai-hero-tabs__box-{{ ai_gen_id }}">
+          <div class="ai-hero-tabs__box-icon-{{ ai_gen_id }}">{{ block.settings.buy_box_2_icon }}</div>
+          <h3 class="ai-hero-tabs__box-title-{{ ai_gen_id }}">{{ block.settings.buy_box_2_title }}</h3>
+          <p class="ai-hero-tabs__box-text-{{ ai_gen_id }}">{{ block.settings.buy_box_2_text }}</p>
+        </div>
+        <div class="ai-hero-tabs__box-{{ ai_gen_id }}">
+          <div class="ai-hero-tabs__box-icon-{{ ai_gen_id }}">{{ block.settings.buy_box_3_icon }}</div>
+          <h3 class="ai-hero-tabs__box-title-{{ ai_gen_id }}">{{ block.settings.buy_box_3_title }}</h3>
+          <p class="ai-hero-tabs__box-text-{{ ai_gen_id }}">{{ block.settings.buy_box_3_text }}</p>
+        </div>
+      </div>
+
+      {% if block.settings.buy_cta_text != blank %}
+        <div class="ai-hero-tabs__cta-wrapper-{{ ai_gen_id }}">
+          <a
+            href="{{ block.settings.buy_cta_link }}"
+            class="ai-hero-tabs__cta-{{ ai_gen_id }}"
+          >
+            {{ block.settings.buy_cta_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div
+      class="ai-hero-tabs__content-{{ ai_gen_id }} {% if block.settings.default_tab == 'sell' %}active{% endif %}"
+      data-content="sell"
+    >
+      <div class="ai-hero-tabs__boxes-{{ ai_gen_id }}">
+        <div class="ai-hero-tabs__box-{{ ai_gen_id }}">
+          <div class="ai-hero-tabs__box-icon-{{ ai_gen_id }}">{{ block.settings.sell_box_1_icon }}</div>
+          <h3 class="ai-hero-tabs__box-title-{{ ai_gen_id }}">{{ block.settings.sell_box_1_title }}</h3>
+          <p class="ai-hero-tabs__box-text-{{ ai_gen_id }}">{{ block.settings.sell_box_1_text }}</p>
+        </div>
+        <div class="ai-hero-tabs__box-{{ ai_gen_id }}">
+          <div class="ai-hero-tabs__box-icon-{{ ai_gen_id }}">{{ block.settings.sell_box_2_icon }}</div>
+          <h3 class="ai-hero-tabs__box-title-{{ ai_gen_id }}">{{ block.settings.sell_box_2_title }}</h3>
+          <p class="ai-hero-tabs__box-text-{{ ai_gen_id }}">{{ block.settings.sell_box_2_text }}</p>
+        </div>
+        <div class="ai-hero-tabs__box-{{ ai_gen_id }}">
+          <div class="ai-hero-tabs__box-icon-{{ ai_gen_id }}">{{ block.settings.sell_box_3_icon }}</div>
+          <h3 class="ai-hero-tabs__box-title-{{ ai_gen_id }}">{{ block.settings.sell_box_3_title }}</h3>
+          <p class="ai-hero-tabs__box-text-{{ ai_gen_id }}">{{ block.settings.sell_box_3_text }}</p>
+        </div>
+      </div>
+
+      {% if block.settings.sell_cta_text != blank %}
+        <div class="ai-hero-tabs__cta-wrapper-{{ ai_gen_id }}">
+          <a
+            href="{{ block.settings.sell_cta_link }}"
+            class="ai-hero-tabs__cta-{{ ai_gen_id }}"
+          >
+            {{ block.settings.sell_cta_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</hero-tabs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HeroTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabButtons = this.querySelectorAll('.ai-hero-tabs__tab-button-{{ ai_gen_id }}');
+        this.tabContents = this.querySelectorAll('.ai-hero-tabs__content-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+            this.switchTab(tabName);
+          });
+        });
+      }
+
+      switchTab(tabName) {
+        this.tabButtons.forEach((btn) => {
+          if (btn.getAttribute('data-tab') === tabName) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        this.tabContents.forEach((content) => {
+          if (content.getAttribute('data-content') === tabName) {
+            content.classList.add('active');
+          } else {
+            content.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('hero-tabs-{{ ai_gen_id }}', HeroTabs{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Hero banner with tabs",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main title"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Title",
+      "default": "BUY & SELL CLOTHES"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Spacing below title",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Tab settings"
+    },
+    {
+      "type": "select",
+      "id": "default_tab",
+      "label": "Default tab",
+      "options": [
+        {
+          "value": "buy",
+          "label": "Buy"
+        },
+        {
+          "value": "sell",
+          "label": "Sell"
+        }
+      ],
+      "default": "buy"
+    },
+    {
+      "type": "text",
+      "id": "buy_tab_label",
+      "label": "Buy tab label",
+      "default": "Buy"
+    },
+    {
+      "type": "text",
+      "id": "sell_tab_label",
+      "label": "Sell tab label",
+      "default": "Sell"
+    },
+    {
+      "type": "font_picker",
+      "id": "tab_font",
+      "label": "Tab font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "label": "Tab font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_vertical",
+      "label": "Tab vertical padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_horizontal",
+      "label": "Tab horizontal padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tab_gap",
+      "label": "Gap between tabs",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_border_width",
+      "label": "Tab border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "label": "Tab border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "label": "Spacing below tabs",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Tab colors - inactive"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_bg",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_text",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_border",
+      "label": "Border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Tab colors - hover"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_bg",
+      "label": "Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_text",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_border",
+      "label": "Border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Tab colors - active"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_border",
+      "label": "Border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Buy tab - box 1"
+    },
+    {
+      "type": "text",
+      "id": "buy_box_1_icon",
+      "label": "Icon",
+      "default": "🛍️"
+    },
+    {
+      "type": "text",
+      "id": "buy_box_1_title",
+      "label": "Title",
+      "default": "Curated Selection"
+    },
+    {
+      "type": "textarea",
+      "id": "buy_box_1_text",
+      "label": "Text",
+      "default": "Browse unique thrift pieces handpicked for quality and style."
+    },
+    {
+      "type": "header",
+      "content": "Buy tab - box 2"
+    },
+    {
+      "type": "text",
+      "id": "buy_box_2_icon",
+      "label": "Icon",
+      "default": "💰"
+    },
+    {
+      "type": "text",
+      "id": "buy_box_2_title",
+      "label": "Title",
+      "default": "Affordable Prices"
+    },
+    {
+      "type": "textarea",
+      "id": "buy_box_2_text",
+      "label": "Text",
+      "default": "Get premium fashion at thrift prices. Quality doesn't have to be expensive."
+    },
+    {
+      "type": "header",
+      "content": "Buy tab - box 3"
+    },
+    {
+      "type": "text",
+      "id": "buy_box_3_icon",
+      "label": "Icon",
+      "default": "🌍"
+    },
+    {
+      "type": "text",
+      "id": "buy_box_3_title",
+      "label": "Title",
+      "default": "Sustainable Fashion"
+    },
+    {
+      "type": "textarea",
+      "id": "buy_box_3_text",
+      "label": "Text",
+      "default": "Shop sustainably and reduce waste by giving clothes a second life."
+    },
+    {
+      "type": "header",
+      "content": "Buy tab - call to action"
+    },
+    {
+      "type": "text",
+      "id": "buy_cta_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "buy_cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Sell tab - box 1"
+    },
+    {
+      "type": "text",
+      "id": "sell_box_1_icon",
+      "label": "Icon",
+      "default": "📦"
+    },
+    {
+      "type": "text",
+      "id": "sell_box_1_title",
+      "label": "Title",
+      "default": "Easy Listing"
+    },
+    {
+      "type": "textarea",
+      "id": "sell_box_1_text",
+      "label": "Text",
+      "default": "List your items in minutes with our simple upload process."
+    },
+    {
+      "type": "header",
+      "content": "Sell tab - box 2"
+    },
+    {
+      "type": "text",
+      "id": "sell_box_2_icon",
+      "label": "Icon",
+      "default": "💵"
+    },
+    {
+      "type": "text",
+      "id": "sell_box_2_title",
+      "label": "Title",
+      "default": "Earn Cash"
+    },
+    {
+      "type": "textarea",
+      "id": "sell_box_2_text",
+      "label": "Text",
+      "default": "Turn your closet into cash. Set your own prices and keep what you earn."
+    },
+    {
+      "type": "header",
+      "content": "Sell tab - box 3"
+    },
+    {
+      "type": "text",
+      "id": "sell_box_3_icon",
+      "label": "Icon",
+      "default": "🤝"
+    },
+    {
+      "type": "text",
+      "id": "sell_box_3_title",
+      "label": "Title",
+      "default": "Join Community"
+    },
+    {
+      "type": "textarea",
+      "id": "sell_box_3_text",
+      "label": "Text",
+      "default": "Connect with fashion lovers and build your seller reputation."
+    },
+    {
+      "type": "header",
+      "content": "Sell tab - call to action"
+    },
+    {
+      "type": "text",
+      "id": "sell_cta_text",
+      "label": "Button text",
+      "default": "Start Selling"
+    },
+    {
+      "type": "url",
+      "id": "sell_cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Box style"
+    },
+    {
+      "type": "range",
+      "id": "box_gap",
+      "label": "Gap between boxes",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "box_padding",
+      "label": "Box padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "box_border_width",
+      "label": "Box border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "box_border_radius",
+      "label": "Box border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "box_bg_color",
+      "label": "Box background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "box_border_color",
+      "label": "Box border",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "range",
+      "id": "box_icon_size",
+      "label": "Icon size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "box_icon_spacing",
+      "label": "Icon spacing",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "font_picker",
+      "id": "box_title_font",
+      "label": "Box title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "box_title_size",
+      "label": "Title size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "box_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "box_title_spacing",
+      "label": "Title spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "box_text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "box_text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Call to action style"
+    },
+    {
+      "type": "font_picker",
+      "id": "cta_font",
+      "label": "CTA font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_vertical",
+      "label": "Vertical padding",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "cta_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "cta_spacing",
+      "label": "Spacing above CTA",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_border_color",
+      "label": "Border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_bg",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_border",
+      "label": "Hover border",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero banner with tabs"
+    }
+  ]
+}
 {% endschema %}
