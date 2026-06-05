@@ -400,7 +400,7 @@
         "content_position": "on-media",
         "color_scheme": "scheme-3",
         "icons_style": "chevron",
-        "icons_shape": "square",
+        "icons_shape": "none",
         "slideshow_controls_style": "none",
         "autoplay": false,
         "autoplay_speed": 4,
