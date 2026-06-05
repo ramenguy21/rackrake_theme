@@ -163,12 +163,11 @@
       "name": "Collection list: Carousel",
       "settings": {
         "collection_list": [
-          "mens-shirts",
+          "womans-shoes",
+          "womans-jackets",
+          "womans-accessories",
           "tops",
-          "mens-pants",
-          "bottoms",
-          "accessories",
-          "shoes"
+          "bottoms"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
