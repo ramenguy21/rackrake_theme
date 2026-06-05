@@ -165,7 +165,9 @@
         "collection_list": [
           "mens-pants",
           "mens-shirts",
-          "mens-shoes"
+          "mens-shoes",
+          "tops",
+          "bottoms"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
