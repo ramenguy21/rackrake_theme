@@ -194,9 +194,10 @@
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/Summer_Tees_mweb__3.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
+            "horizontal_alignment": "center",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
@@ -204,7 +205,7 @@
             "gap": 12,
             "inherit_color_scheme": true,
             "color_scheme": "",
-            "toggle_overlay": false,
+            "toggle_overlay": true,
             "overlay_color": "#00000026",
             "overlay_style": "solid",
             "gradient_direction": "to top",
@@ -243,7 +244,7 @@
             "text_BfLBmm": {
               "type": "text",
               "settings": {
-                "text": "<p>Post clothes in minutes and get paid when they sell.</p>",
+                "text": "<p>Post listings in minutes and get paid when they sell.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -272,8 +273,8 @@
                 "link": "https://sell.rackrake.shop",
                 "open_in_new_tab": false,
                 "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
+                "width": "custom",
+                "custom_width": 30,
                 "width_mobile": "fit-content",
                 "custom_width_mobile": 100
               },
@@ -290,6 +291,7 @@
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/e8fac40a08eb4ad39ecd3315f30870f1.webp",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -300,8 +302,8 @@
             "gap": 12,
             "inherit_color_scheme": true,
             "color_scheme": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
+            "toggle_overlay": true,
+            "overlay_color": "#00000025",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "padding-block-start": 48,
@@ -314,7 +316,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>List in seconds</h3>",
+                "text": "<h2>100+ unique sellers</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -329,7 +331,7 @@
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 0,
+                "padding-block-start": 32,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -339,7 +341,7 @@
             "text_DNtNQR": {
               "type": "text",
               "settings": {
-                "text": "<p>Discover the bestsellers that have captured the hearts of our customers with their perfect blend of functionality and style.</p>",
+                "text": "<p>Find brand new to lightly used clothes to buy</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -364,12 +366,12 @@
             "button_pfCdD8": {
               "type": "button",
               "settings": {
-                "label": "Shop now",
+                "label": "Browse sellers",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
+                "width": "custom",
+                "custom_width": 30,
                 "width_mobile": "fit-content",
                 "custom_width_mobile": 100
               },
@@ -389,20 +391,20 @@
       ],
       "name": "t:names.slideshow_inset",
       "settings": {
-        "display_mode": "with_hints",
-        "section_width": "page-width",
-        "full_frame_on_mobile": false,
+        "display_mode": "full_frame",
+        "section_width": "full-width",
+        "full_frame_on_mobile": true,
         "slideshow_gap": 18,
         "corner_radius": 0,
-        "slide_height": "small",
-        "content_position": "below-media",
+        "slide_height": "medium",
+        "content_position": "on-media",
         "color_scheme": "scheme-3",
         "icons_style": "chevron",
         "icons_shape": "square",
         "slideshow_controls_style": "none",
         "autoplay": false,
         "autoplay_speed": 4,
-        "padding-block-start": 42,
+        "padding-block-start": 0,
         "padding-block-end": 0
       }
     },
@@ -414,11 +416,11 @@
           "name": "t:names.collection_card",
           "static": true,
           "settings": {
-            "placement": "below_image",
+            "placement": "on_image",
             "horizontal_alignment": "center",
-            "vertical_alignment": "flex-start",
+            "vertical_alignment": "flex-end",
             "collection_card_gap": 8,
-            "inherit_color_scheme": true,
+            "inherit_color_scheme": false,
             "color_scheme": "",
             "border": "none",
             "border_width": 1,
@@ -474,20 +476,15 @@
           ]
         }
       },
-      "disabled": true,
       "name": "Top Collection Carousel",
       "settings": {
         "collection_list": [
-          "outerwear",
-          "tops",
-          "pants",
-          "skirts",
-          "shoes",
-          "accessories"
+          "shop-men",
+          "shop-women"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
-        "columns": 5,
+        "columns": 2,
         "mobile_columns": "2",
         "mobile_card_size": "44cqw",
         "columns_gap": 45,
@@ -498,7 +495,7 @@
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 12,
-        "color_scheme": "scheme-04616b06-10fd-43d5-a622-bc7a42e347d1",
+        "color_scheme": "scheme-3",
         "padding-block-start": 40,
         "padding-block-end": 38
       }
