@@ -458,8 +458,8 @@
               "name": "t:names.collection_card_image",
               "static": true,
               "settings": {
-                "image_ratio": "portrait",
-                "toggle_overlay": false,
+                "image_ratio": "square",
+                "toggle_overlay": true,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
