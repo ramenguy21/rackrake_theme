@@ -173,7 +173,10 @@
       "settings": {
         "collection_list": [
           "mens-pants",
-          "mens-shirts"
+          "mens-shirts",
+          "mens-accessories",
+          "mens-jackets",
+          "mens-shoes"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
