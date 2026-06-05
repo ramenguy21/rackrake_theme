@@ -1,6 +1,499 @@
+{% doc %}
+  @prompt
+    Create a verified badge section that sits under the collection description. The badge should include a verification icon (like a checkmark or shield) and display text like "Verified by Rack Rake". When a user hovers over or clicks the badge, it should show a tooltip or popup with the message "This shop is verified by Rack Rake". The badge should be styled to look trustworthy and on-brand, with smooth hover/click interactions.
+    
+    make sure the tool tip text doesnt go off screen and is constrained no matter how much text u add give settings for that and all paddings and text color and button color and typography and background color and what not
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-verified-badge-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin-top: {{ block.settings.spacing_top }}px;
+    margin-bottom: {{ block.settings.spacing_bottom }}px;
+  }
+
+  .ai-verified-badge-container-{{ ai_gen_id }} {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: {{ block.settings.icon_text_gap }}px;
+    padding: {{ block.settings.badge_padding_vertical }}px {{ block.settings.badge_padding_horizontal }}px;
+    background-color: {{ block.settings.badge_background_color }};
+    border: {{ block.settings.badge_border_width }}px solid {{ block.settings.badge_border_color }};
+    border-radius: {{ block.settings.badge_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-verified-badge-container-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.badge_hover_background_color }};
+    border-color: {{ block.settings.badge_hover_border_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-verified-badge-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    flex-shrink: 0;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-verified-badge-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    font-weight: {{ block.settings.text_weight }};
+    color: {{ block.settings.text_color }};
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .ai-verified-badge-tooltip-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: calc(100% + {{ block.settings.tooltip_offset }}px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: {{ block.settings.tooltip_background_color }};
+    color: {{ block.settings.tooltip_text_color }};
+    padding: {{ block.settings.tooltip_padding_vertical }}px {{ block.settings.tooltip_padding_horizontal }}px;
+    border-radius: {{ block.settings.tooltip_border_radius }}px;
+    font-size: {{ block.settings.tooltip_text_size }}px;
+    line-height: 1.4;
+    white-space: normal;
+    max-width: {{ block.settings.tooltip_max_width }}px;
+    width: max-content;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-verified-badge-tooltip-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: {{ block.settings.tooltip_background_color }};
+  }
+
+  .ai-verified-badge-container-{{ ai_gen_id }}:hover .ai-verified-badge-tooltip-{{ ai_gen_id }},
+  .ai-verified-badge-container-{{ ai_gen_id }}.active .ai-verified-badge-tooltip-{{ ai_gen_id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-verified-badge-tooltip-{{ ai_gen_id }} {
+      max-width: calc(100vw - 40px);
+      left: 50%;
+      right: auto;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-verified-badge-tooltip-{{ ai_gen_id }} {
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+    }
+
+    .ai-verified-badge-container-{{ ai_gen_id }}:hover .ai-verified-badge-tooltip-{{ ai_gen_id }},
+    .ai-verified-badge-container-{{ ai_gen_id }}.active .ai-verified-badge-tooltip-{{ ai_gen_id }} {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+{% endstyle %}
+
+<verified-badge-{{ ai_gen_id }}
+  class="ai-verified-badge-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-verified-badge-container-{{ ai_gen_id }}">
+    <div class="ai-verified-badge-icon-{{ ai_gen_id }}">
+      {% if block.settings.icon_style == 'checkmark' %}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      {% elsif block.settings.icon_style == 'shield' %}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="M9 12l2 2 4-4"></path>
+        </svg>
+      {% elsif block.settings.icon_style == 'badge' %}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="8" r="7"></circle>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+          <path d="M9 8l2 2 4-4"></path>
+        </svg>
+      {% endif %}
+    </div>
+    <p class="ai-verified-badge-text-{{ ai_gen_id }}">{{ block.settings.badge_text }}</p>
+    <div class="ai-verified-badge-tooltip-{{ ai_gen_id }}">
+      {{ block.settings.tooltip_text }}
+    </div>
+  </div>
+</verified-badge-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class VerifiedBadge{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.container = this.querySelector('.ai-verified-badge-container-{{ ai_gen_id }}');
+        this.tooltip = this.querySelector('.ai-verified-badge-tooltip-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.container.addEventListener('click', () => {
+          this.container.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!this.contains(event.target)) {
+            this.container.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('verified-badge-{{ ai_gen_id }}', VerifiedBadge{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Verified badge",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Verified by Rack Rake"
+    },
+    {
+      "type": "select",
+      "id": "icon_style",
+      "label": "Icon style",
+      "options": [
+        {
+          "value": "checkmark",
+          "label": "Checkmark"
+        },
+        {
+          "value": "shield",
+          "label": "Shield"
+        },
+        {
+          "value": "badge",
+          "label": "Badge"
+        }
+      ],
+      "default": "shield"
+    },
+    {
+      "type": "textarea",
+      "id": "tooltip_text",
+      "label": "Tooltip text",
+      "default": "This shop is verified by Rack Rake"
+    },
+    {
+      "type": "header",
+      "content": "Badge style"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_vertical",
+      "label": "Vertical padding",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "badge_background_color",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "badge_hover_background_color",
+      "label": "Hover background",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "range",
+      "id": "badge_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "badge_border_color",
+      "label": "Border color",
+      "default": "#d4d4d4"
+    },
+    {
+      "type": "color",
+      "id": "badge_hover_border_color",
+      "label": "Hover border color",
+      "default": "#b8b8b8"
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Color",
+      "default": "#008060"
+    },
+    {
+      "type": "range",
+      "id": "icon_text_gap",
+      "label": "Gap between icon and text",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Tooltip"
+    },
+    {
+      "type": "range",
+      "id": "tooltip_max_width",
+      "label": "Max width",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "tooltip_padding_vertical",
+      "label": "Vertical padding",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "tooltip_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "tooltip_offset",
+      "label": "Distance from badge",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "tooltip_background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tooltip_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "tooltip_text_size",
+      "label": "Text size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "tooltip_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Verified badge"
+    }
+  ]
+}
 {% endschema %}
