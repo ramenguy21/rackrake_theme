@@ -389,7 +389,7 @@
         "columns": 3,
         "mobile_columns": "2",
         "mobile_card_size": "44cqw",
-        "columns_gap": 8,
+        "columns_gap": 7,
         "bento_gap": 8,
         "rows_gap": 8,
         "max_collections": 4,
@@ -703,11 +703,38 @@
                         "padding-inline-end": 0
                       },
                       "blocks": {}
+                    },
+                    "text_KGVqBY": {
+                      "type": "text",
+                      "name": "t:names.text",
+                      "settings": {
+                        "text": "<p>{{ closest.product.metafields.custom.size.value }} · {{ closest.product.metafields.custom.brand.value }}</p>",
+                        "width": "fit-content",
+                        "max_width": "narrow",
+                        "alignment": "left",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "tight",
+                        "letter_spacing": "tight",
+                        "case": "uppercase",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
                     "product_title_LtzfYU",
-                    "price_4AxMH8"
+                    "price_4AxMH8",
+                    "text_KGVqBY"
                   ]
                 },
                 "swatches_xD4rmM": {
@@ -744,7 +771,7 @@
         "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": false,
-        "columns_gap_horizontal": 0,
+        "columns_gap_horizontal": 6,
         "columns_gap_vertical": 16,
         "padding-inline-start": 0,
         "padding-inline-end": 0,
