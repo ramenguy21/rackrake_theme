@@ -112,7 +112,8 @@
       "settings": {
         "collection_list": [
           "shop-men",
-          "shop-women"
+          "shop-women",
+          "shop-all"
         ],
         "layout": "text",
         "section_width": "page-width",
