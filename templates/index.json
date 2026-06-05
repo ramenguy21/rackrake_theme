@@ -164,11 +164,12 @@
       "settings": {
         "collection_list": [
           "mens-shirts",
+          "tops",
           "mens-pants",
           "bottoms",
+          "outerwear",
           "accessories",
-          "shoes",
-          "mens-jackets"
+          "shoes"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
