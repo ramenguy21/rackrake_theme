@@ -108,7 +108,6 @@
           "block_order": []
         }
       },
-      "disabled": true,
       "name": "t:names.collection_links_text",
       "settings": {
         "collection_list": [
