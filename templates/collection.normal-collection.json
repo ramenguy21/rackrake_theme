@@ -172,15 +172,12 @@
       "name": "t:names.collections_carousel",
       "settings": {
         "collection_list": [
-          "tops",
-          "skirts",
-          "shoes",
-          "pants",
-          "outerwear"
+          "mens-pants",
+          "mens-shirts"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
-        "columns": 3,
+        "columns": 5,
         "mobile_columns": "2",
         "mobile_card_size": "44cqw",
         "columns_gap": 8,
