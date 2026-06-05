@@ -111,8 +111,8 @@
       "name": "t:names.collection_links_text",
       "settings": {
         "collection_list": [
-          "shop-men",
-          "shop-women",
+          "men",
+          "women",
           "shop-all"
         ],
         "layout": "text",
