@@ -161,7 +161,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<h1>GENRE</h1>",
+            "text": "<h1>BY VIBE</h1>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
