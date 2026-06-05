@@ -1,1 +1,65 @@
-{"type":"footer","name":"t:names.footer","sections":{"logo_Rpw4dD":{"type":"logo","name":"t:names.logo","settings":{"inverse":false,"font":"heading","unit":"percent","pixel_height":48,"percent_width":74,"custom_mobile_size":false,"unit_mobile":"percent","percent_width_mobile":100,"pixel_height_mobile":120,"section_width":"page-width","alignment_horizontal":"center","color_scheme":"scheme-04616b06-10fd-43d5-a622-bc7a42e347d1","padding-block-start":100,"padding-block-end":32}},"utilities":{"type":"footer-utilities","blocks":{"footer_copyright_yLCnGY":{"type":"footer-copyright","name":"t:names.copyright","settings":{"show_powered_by":false,"font_size":"0.75rem","case":"none"},"blocks":{}},"footer_policy_list_d67hbx":{"type":"footer-policy-list","name":"t:names.policy_list","disabled":true,"settings":{"font_size":"0.75rem","case":"none"},"blocks":{}}},"block_order":["footer_copyright_yLCnGY","footer_policy_list_d67hbx"],"settings":{"section_width":"page-width","gap":24,"divider_thickness":1,"color_scheme":"scheme-04616b06-10fd-43d5-a622-bc7a42e347d1","padding-block-start":0,"padding-block-end":36}}},"order":["logo_Rpw4dD","utilities"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:names.footer",
+  "sections": {
+    "logo_Rpw4dD": {
+      "type": "logo",
+      "name": "t:names.logo",
+      "settings": {
+        "inverse": false,
+        "font": "heading",
+        "unit": "percent",
+        "pixel_height": 48,
+        "percent_width": 74,
+        "custom_mobile_size": false,
+        "unit_mobile": "percent",
+        "percent_width_mobile": 100,
+        "pixel_height_mobile": 120,
+        "section_width": "page-width",
+        "alignment_horizontal": "center",
+        "color_scheme": "scheme-04616b06-10fd-43d5-a622-bc7a42e347d1",
+        "padding-block-start": 100,
+        "padding-block-end": 32
+      }
+    },
+    "utilities": {
+      "type": "footer-utilities",
+      "blocks": {
+        "footer_copyright_yLCnGY": {
+          "type": "footer-copyright",
+          "name": "t:names.copyright",
+          "settings": {
+            "show_powered_by": false,
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "footer_copyright_yLCnGY"
+      ],
+      "settings": {
+        "section_width": "page-width",
+        "gap": 24,
+        "divider_thickness": 1,
+        "color_scheme": "scheme-04616b06-10fd-43d5-a622-bc7a42e347d1",
+        "padding-block-start": 0,
+        "padding-block-end": 36
+      }
+    }
+  },
+  "order": [
+    "logo_Rpw4dD",
+    "utilities"
+  ]
+}
