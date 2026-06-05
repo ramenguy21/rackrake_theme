@@ -167,7 +167,8 @@
           "tops",
           "mens-pants",
           "bottoms",
-          "mens-shoes"
+          "accessories",
+          "shoes"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
