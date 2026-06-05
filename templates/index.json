@@ -590,7 +590,7 @@
           "settings": {
             "product_card_gap": 0,
             "inherit_color_scheme": false,
-            "color_scheme": "scheme-7",
+            "color_scheme": "scheme-grey-divider",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
@@ -789,8 +789,8 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 24,
-        "color_scheme": "scheme-7",
-        "padding-block-start": 100,
+        "color_scheme": "scheme-04616b06-10fd-43d5-a622-bc7a42e347d1",
+        "padding-block-start": 52,
         "padding-block-end": 100
       }
     },
