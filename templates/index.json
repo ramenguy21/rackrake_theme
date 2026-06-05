@@ -477,8 +477,8 @@
       "name": "Top Collection Carousel",
       "settings": {
         "collection_list": [
-          "shop-men",
-          "shop-women"
+          "men",
+          "women"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
@@ -832,12 +832,7 @@
       "name": "Bottom Collection Text",
       "settings": {
         "collection_list": [
-          "outerwear",
-          "tops",
-          "pants",
-          "accessories",
-          "shoes",
-          "skirts"
+          "tops"
         ],
         "layout": "text",
         "section_width": "page-width",
