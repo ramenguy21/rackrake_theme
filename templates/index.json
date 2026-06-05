@@ -163,11 +163,9 @@
       "name": "Collection list: Carousel",
       "settings": {
         "collection_list": [
-          "outerwear",
-          "pants",
-          "shoes",
-          "skirts",
-          "tops"
+          "mens-pants",
+          "mens-shirts",
+          "mens-shoes"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": false,
@@ -303,7 +301,7 @@
             "inherit_color_scheme": true,
             "color_scheme": "",
             "toggle_overlay": true,
-            "overlay_color": "#00000025",
+            "overlay_color": "#00000026",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "padding-block-start": 48,
