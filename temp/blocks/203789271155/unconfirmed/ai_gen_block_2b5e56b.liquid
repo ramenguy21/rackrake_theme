@@ -1,6 +1,167 @@
+{% doc %}
+  @prompt
+    a link button that connects to a page or blog. same size and style as trademark or policy
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-link-button-{{ ai_gen_id }} {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .ai-link-button-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    width: {{ block.settings.desktop_width_percent }}%;
+  }
+
+  .ai-link-button-link-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: transparent;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 0;
+    font-family: var(--font-accent-family);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .ai-link-button-link-{{ ai_gen_id }}:hover {
+    background-color: #dedede;
+    color: #000000;
+    border-color: #000000;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-link-button-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-link-button-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-link-button-wrapper-{{ ai_gen_id }}">
+    {% if block.settings.link_type == 'page' %}
+      {% if block.settings.page != blank %}
+        <a href="{{ block.settings.page.url }}" class="ai-link-button-link-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+        <a href="#" class="ai-link-button-link-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+    {% elsif block.settings.link_type == 'blog' %}
+      {% if block.settings.blog != blank %}
+        <a href="{{ block.settings.blog.url }}" class="ai-link-button-link-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+        <a href="#" class="ai-link-button-link-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+    {% else %}
+      {% if block.settings.custom_url != blank %}
+        <a href="{{ block.settings.custom_url }}" class="ai-link-button-link-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+        <a href="#" class="ai-link-button-link-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Link button",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Learn more"
+    },
+    {
+      "type": "select",
+      "id": "link_type",
+      "label": "Link type",
+      "options": [
+        {
+          "value": "page",
+          "label": "Page"
+        },
+        {
+          "value": "blog",
+          "label": "Blog"
+        },
+        {
+          "value": "custom",
+          "label": "Custom URL"
+        }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "page",
+      "id": "page",
+      "label": "Page"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "url",
+      "id": "custom_url",
+      "label": "Custom URL"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Link button"
+    }
+  ]
+}
 {% endschema %}
