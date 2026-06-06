@@ -836,7 +836,14 @@
       "name": "Bottom Collection Text",
       "settings": {
         "collection_list": [
-          "tops"
+          "tops",
+          "mens-shirts",
+          "mens-pants",
+          "bottoms",
+          "shoes",
+          "streetwear",
+          "outerwear",
+          "accessories"
         ],
         "layout": "text",
         "section_width": "page-width",
